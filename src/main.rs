@@ -5,6 +5,10 @@ use std::{
 };
 
 fn handle_client(mut stream: TcpStream) {
+    println!(
+        "Client connected with ip '{}'.",
+        stream.peer_addr().unwrap()
+    );
     loop {
         let mut read = [0; 1028];
         match stream.read(&mut read) {
@@ -17,8 +21,13 @@ fn handle_client(mut stream: TcpStream) {
             Err(err) => panic!("Error: {}", err),
         }
     }
+    println!(
+        "Client with ip '{}' disconnected.",
+        stream.peer_addr().unwrap()
+    );
 }
 fn main() {
+    println!("Echo server running...");
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
 
     for stream in listener.incoming() {
