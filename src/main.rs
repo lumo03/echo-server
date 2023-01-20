@@ -27,9 +27,11 @@ fn handle_client(mut stream: TcpStream) {
     );
 }
 fn main() {
+    let ip = "127.0.0.1";
+    let port = "8080";
     println!("Echo server running...");
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
-
+    let listener = TcpListener::bind(format!("{}:{}", ip, port)).unwrap();
+    println!("Connect to ip-adress '{}' on port '{}'.", ip, port);
     for stream in listener.incoming() {
         match stream {
             Ok(stream) => {
